@@ -1,0 +1,24 @@
+name: Simple Runner Build
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+jobs:
+  Run-Test:
+    strategy:
+      max-parallel: 1
+      matrix:
+        os: [windows-latest] # ubuntu-latest, macos-latest
+    runs-on: ${{ matrix.os }}
+    name: Run Test
+    steps:
+      - run: echo "Trigger event.. ${{ github.event_name }}. Runner OS.. ${{ runner.os }}."
+      - name: Simple Runner
+        uses: foomunleong/simple_runner@main
+        with:
+          parameters: one=alpha;;two=bravo charlie
+          simpleRunnerPath: "${GITHUB_WORKSPACE}\\simple-runner.exe"

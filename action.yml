@@ -1,0 +1,63 @@
+
+name: "Simple Runner"
+description: "Simple Runner."
+inputs:
+  simpleRunnerPath:
+    description: "The path to simple runner CLI executable"
+    required: false
+  parameters:
+    description: "Parameter(s) in the format parameter_name=parameter_value"
+    required: false
+runs:
+  using: "composite"
+  steps:
+    - name: Fetch CLI
+      if: ${{ inputs.simpleRunnerPath }}
+      run: |     
+          echo ">> Checking runner..."
+          filename=$(basename "${{ inputs.simpleRunnerPath }}")
+          echo "Fetching runner from ${{ inputs.simpleRunnerPath }}"
+          CLI_DIR="$RUNNER_TEMP/downloads"
+          mkdir -p "$CLI_DIR"
+          cp -f "${{ inputs.simpleRunnerPath }}" $CLI_DIR
+          echo "CLI_PATH=$CLI_DIR/$CLI_FILENAME" >> $GITHUB_ENV
+          echo "Fetch complete."
+      shell: bash
+
+    - name: Set permissions on simple runner executable
+      run: |
+        chmod 0755 $CLI_PATH
+      shell: bash
+      
+    - name: Run Simple Test
+      run: |
+      
+        COMMANDSTR=""
+        # this wrap value in "" only when space detected before = and after =
+        if [ -n "${{ inputs.parameters}}" ]; then
+          IFS=';;' read -ra values <<< "${{ inputs.parameters }}"
+          for value in "${values[@]}"; do
+            if [ -n "$value" ]; then
+              key="${value%%=*}"
+              val="${value#*=}"
+              
+              if [[ "$key" == *" "* ]]; then
+                key="\"$key\""
+              fi
+              
+              if [[ "$val" == *" "* ]]; then
+                val="\"$val\""
+              fi
+              
+              COMMANDSTR+=" --param $key=$val"
+            fi
+          done
+        fi
+
+        for arg in "$@"; do
+          echo "$COMMANDSTR"
+        done
+        
+        echo "Executing: $CLI_PATH $COMMANDSTR"
+        "$CLI_PATH" $COMMANDSTR
+      shell: bash
