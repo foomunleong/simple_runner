@@ -19,7 +19,7 @@ runs:
           CLI_DIR="$RUNNER_TEMP/downloads"
           mkdir -p "$CLI_DIR"
           cp -f "${{ inputs.simpleRunnerPath }}" $CLI_DIR
-          echo "CLI_PATH=$CLI_DIR/$CLI_FILENAME" >> $GITHUB_ENV
+          echo "CLI_PATH=$CLI_DIR/simple-runner.exe" >> $GITHUB_ENV
           echo "Fetch complete."
       shell: bash
 
