@@ -15,7 +15,6 @@ runs:
       if: ${{ inputs.simpleRunnerPath }}
       run: |     
           echo ">> Checking runner..."
-          filename=$(basename "${{ inputs.simpleRunnerPath }}")
           echo "Fetching runner from ${{ inputs.simpleRunnerPath }}"
           CLI_DIR="$RUNNER_TEMP/downloads"
           mkdir -p "$CLI_DIR"
