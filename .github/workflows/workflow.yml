@@ -24,6 +24,7 @@ jobs:
           testConfigID: "70cba0ed-6068-4df0-ab32-0018ed24380c" # gherkin: c07d3c07-5e02-4b74-ab49-79ea0aac67d4
           clientID: "client:dai:api:integration:a8a44ff4-c5a4-41a3-8edc-59bb8a3548da"
           clientSecret: "${{secrets.DAI_CLIENT_SECRET}}"
+          dryRun: true
           # filterBy: ""
           # step_status_include
           # step_status_exclude
