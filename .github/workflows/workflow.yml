@@ -25,7 +25,7 @@ jobs:
           clientID: "client:dai:api:integration:a8a44ff4-c5a4-41a3-8edc-59bb8a3548da"
           clientSecret: "${{secrets.DAI_CLIENT_SECRET}}"
           filterBy: "step_status_include=Passed,Failed;;test_case_tag_exclude=\\\"Tag with space and dollar \\$ sign\\\""
-          filterByJson: "./filters.json"
+          filterByJson: "filters.json"
           previousTaskInstanceID: "69dcb1fa-7179-5ea1-bc43-1129fe35491d"
           dryRun: true
           # filterBy: ""
