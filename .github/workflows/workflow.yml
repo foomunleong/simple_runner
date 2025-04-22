@@ -26,7 +26,7 @@ jobs:
           clientSecret: "${{secrets.DAI_CLIENT_SECRET}}"
           filterBy: "step_status_include=Passed,Failed;;test_case_tag_exclude=\\\"Tag with space and dollar \\$ sign\\\";;scenario_tag=\\\"~@tagA ~@tagB ~@regression\\\""
           previousTaskInstanceID: "69dcb1fa-7179-5ea1-bc43-1129fe35491d"
-          dryRun: true
+          # dryRun: true
           # step_status_include
           # step_status_exclude
           # test_case_tag_include
